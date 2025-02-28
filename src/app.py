@@ -1,20 +1,20 @@
 from flask import Flask,request,jsonify
-from flask.cli import load_dotenv
 from flask_mysqldb import MySQL
 from flask_pymongo import PyMongo
 from bson import ObjectId
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb+srv://joseppastor2288:kujo@cluster0.xwc8z.mongodb.net/personas"
+app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
+app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
+app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
+app.config["MYSQL_DB"] = os.getenv("MYSQL_DB")
 
-app.config["MYSQL_HOST"] = "bwi5mhwbgtj7wfyxgo5x-mysql.services.clever-cloud.com"
-app.config["MYSQL_PASSWORD"] = "kp1SuSy2mrVSpYfI7f0E"
-app.config["MYSQL_USER"] = "ucortnls8wvfa6ph"
-app.config["MYSQL_DB"] = "bwi5mhwbgtj7wfyxgo5x"
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
 mysql = MySQL(app)
 mongo = PyMongo(app)
